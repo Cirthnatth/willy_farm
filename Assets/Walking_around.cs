@@ -9,6 +9,7 @@ public class Walking_around : MonoBehaviour
     bool iseating;
     bool isidle;
     bool isturnhead;
+    string Connectioner;
     // Start is called before the first frame update
     void Start()
     {
