@@ -11,18 +11,32 @@ public class Walking_around : MonoBehaviour
     bool isturnhead;
     string Connectioner;
     private Animator Chickin;
+    int delaytimer;
+    int Rng_action = 0;
+    int rng_time;
+    public float chicken_walking;
     // Start is called before the first frame update
     void Start()
     {
         Chickin = GetComponent<Animator>();
+        delaytimer = 0;
+        Rng_action = Random.Range(1, 5);
+        rng_time = Random.Range(450, 750);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        int Rng_action;
-        Rng_action = Random.Range(1, 5);
-        if(Rng_action == 1)
+        
+        delaytimer = delaytimer + 1;
+        if(delaytimer >= rng_time)
+        {
+            Rng_action = Random.Range(1, 5);
+            delaytimer = 0;
+        }
+        
+        if (Rng_action == 1)
         {
             isidle = true;
             iseating = false;
@@ -74,6 +88,7 @@ public class Walking_around : MonoBehaviour
         if (isrunning == true)
         {
             Chickin.Play("Run In Place");
+            this.transform.Translate(0, 0, chicken_walking * (2));
         }
         if (isturnhead == true)
         {
@@ -82,11 +97,8 @@ public class Walking_around : MonoBehaviour
         if (iswalking == true)
         {
             Chickin.Play("Walk In Place");
+            this.transform.Translate(0, 0, chicken_walking);
         }
-        StartCoroutine(Delay());
-    }
-    IEnumerator Delay()
-    {
-        yield return new WaitForSeconds(10000);
+
     }
 }
